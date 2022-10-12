@@ -24,8 +24,12 @@
         <option value="4">市街ラウンド</option>
         <option value="5">試合終了</option>
     </select>
-    <button id="start" onclick="localStorage.setItem('start' ,'go');return false">start</button>
-    <button id="stop" onclick="localStorage.setItem('start' ,'stop');return false">stop</button>
+
+
+    <select id="start" onchange="localStorage.setItem('start' ,this.value);">
+        <option selected value="stop">stop</option>
+        <option value="start">start</option>
+    </select>
     <h3>右</h3>
     <select id="right" onchange="localStorage.setItem('name_right' ,this.value);">
         <option value="-">-</option>

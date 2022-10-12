@@ -145,7 +145,7 @@
 
     document.getElementById("time").addEventListener("click", () => {
         document.body.style.background = "black";
-        document.addEventListener("storage", function (e) {
+        window.addEventListener("storage", function (e) {
             let value = e.newValue;
             let key = e.key;
             switch (key) {
