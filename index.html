@@ -88,14 +88,8 @@
         function setRName(st) {
             document.getElementById("team_right").innerText = st;
         }
-        function setLName(st) {
-            document.getElementById("team_left").innerText = st;
-        }
         function setRScore(st) {
-            document.getElementById("score_right").innerText = st;
-        }
-        function setLScore(st) {
-            document.getElementById("score_left").innerText = st;
+            document.getElementById("point_right").innerText = st;
         }
         function update() {
             if (time > 180)
@@ -152,14 +146,8 @@
                 case "score_right":
                     setRScore(value);
                     break;
-                case "score_left":
-                    setLScore(value);
-                    break;
                 case "name_right":
                     setRName(value);
-                    break;
-                case "name_left":
-                    setLName(value);
                     break;
                 case "state":
                     switch (value) {
