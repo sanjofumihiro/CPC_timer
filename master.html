@@ -16,7 +16,7 @@
         フルコントロール
     </h2>
     <h3>状況</h3>
-    <select id="state" onchange="localStorage.state = this.value;">
+    <select id="state" onchange="localStorage.setItem('state' ,this.value);">
         <option selected value="0">試合準備中</option>
         <option value="1">セッティングタイム</option>
         <option value="2">ライティングタイム</option>
@@ -24,16 +24,16 @@
         <option value="4">市街ラウンド</option>
         <option value="5">試合終了</option>
     </select>
-    <button id="start" onclick="localStorage.start = id++;">start</button>
-    <button id="stop" onclick="localStorage.stop = id++;">stop</button>
+    <button id="start" onclick="localStorage.setItem('start' ,id++);">start</button>
+    <button id="stop" onclick="localStorage.setItem('stop' ,id++);">stop</button>
     <h3>右</h3>
-    <select id="right" onchange="localStorage.name_right = this.value;">
+    <select id="right" onchange="localStorage.setItem('name_right' ,this.value);">
         <option value="-">-</option>
         <option value="ナスビ">ナスビ</option>
         <option value="アイ・アム・ロボコニスト">アイ・アム・ロボコニスト</option>
         <option value="死亡フラグクラッシャー">死亡フラグクラッシャー</option>
     </select>
-    <input type="number" value="0" id="r_score" onchange="localStorage.score_right = this.value;">
+    <input type="number" value="0" id="r_score" onchange="localStorage.setItem('score_right' ,this.value);">
 </body>
 
 </html>
