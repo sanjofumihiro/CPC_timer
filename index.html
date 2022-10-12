@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="jp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPC カウンター</title>
+
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            background: red;
+        }
+
+        #score {
+            margin: 0;
+            display: flex;
+
+            text-align: center;
+            color: #fff;
+            font-weight: bold;
+
+        }
+
+        .scores {
+            margin: 0;
+            width: 100vw;
+            border: solid 2px #ddd;
+        }
+
+        .team {
+            margin: 0;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            border-bottom: solid 2px #fff;
+            text-align: center;
+            font-size: 28px;
+        }
+
+        .point {
+            margin: 0;
+            width: 100%;
+            padding: 40px;
+            box-sizing: border-box;
+            text-align: center;
+            font-size: 36px;
+        }
+
+        #situation {
+            font-size: 28px;
+            color: #ddd;
+        }
+
+        #situation {
+            padding: 50px;
+            color: #eee;
+            font-size: 70px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        #time {
+            padding: 50px;
+            color: #eee;
+            font-size: 360px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        #time[data-up="true"] {
+            color: #f44;
+        }
+    </style>
+
+    <script>
+        const music = new Audio('./music.mp3');
+        let status = 0; // 0-試合準備中、1-セッティングタイム、2-ライティングタイム、3-荒野ラウンド、4-市街ラウンド、 5-試合終了
+        let inter;
+        let time = 186;
+
+        function setState(st) {
+            document.getElementById("situation").innerText = st;
+        }
+        function setRName(st) {
+            document.getElementById("team_right").innerText = st;
+        }
+        function setLName(st) {
+            document.getElementById("team_left").innerText = st;
+        }
+        function setRScore(st) {
+            document.getElementById("score_right").innerText = st;
+        }
+        function setLScore(st) {
+            document.getElementById("score_left").innerText = st;
+        }
+        function update() {
+            if (time > 180)
+                document.getElementById("time").innerHTML = "0" + Math.floor(Math.abs(time - 180) / 60) + ":" + ('00' + (time % 60)).slice(-2);
+            else
+                document.getElementById("time").innerHTML = "0" + Math.floor(time / 60) + ":" + ('00' + (time % 60)).slice(-2);
+        }
+
+        function start() {
+            inter = setInterval(() => {
+                time = time - 1;
+                if (time == 5) {
+                    music.play();
+                }
+                if (time == 0) {
+                    clearInterval(inter);
+                }
+
+                if (time == 185) {
+                    music.play();
+                }
+                update();
+            }, 1000);
+        }
+        function stop() {
+            clearInterval(inter);
+        }
+    </script>
+</head>
+
+<body>
+    <div id="score">
+        <div class="scores">
+            <div class="team" id="team_left">チームA</div>
+            <div class="point" id="point_left">0</div>
+        </div>
+    </div>
+    <div id="situation">
+        試合準備中
+    </div>
+    <div id="time" data-up="false">
+        00:00
+    </div>
+</body>
+<script>
+
+
+    document.getElementById("time").addEventListener("click", () => {
+        document.body.style.background = "black";
+        document.addEventListener("storage", function (e) {
+            let value = e.newValue;
+            let key = e.key;
+            switch (key) {
+                case "score_right":
+                    setRScore(value);
+                    break;
+                case "score_left":
+                    setLScore(value);
+                    break;
+                case "name_right":
+                    setRName(value);
+                    break;
+                case "name_left":
+                    setLName(value);
+                    break;
+                case "state":
+                    switch (value) {
+                        case "0":
+                            setState("試合準備中");
+                            break;
+                        case "1":
+                            setState("セッティングタイム");
+                            time = 60;
+                            break;
+                        case "2":
+                            setState("ライティングタイム");
+                            break;
+                        case "3":
+                            setState("荒野ラウンド");
+                            time = 186;
+                            break;
+                        case "4":
+                            setState("市街ラウンド");
+                            time = 186;
+                            break;
+                        case "5":
+                            setState("試合終了");
+                            break;
+                    }
+                    break;
+                case "start":
+                    start();
+                    break;
+                case "stop":
+                    stop();
+                    break;
+            }
+            update();
+        });
+    });
+</script>
+
+</html>
