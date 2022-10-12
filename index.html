@@ -187,10 +187,12 @@
                     }
                     break;
                 case "start":
-                    start();
+                    if (value == "start")
+                        start();
                     break;
                 case "stop":
-                    stop();
+                    if (value == "stop")
+                        stop();
                     break;
             }
             update();
